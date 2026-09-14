@@ -8,7 +8,10 @@
 ```bash
 bash ~/cv/build.sh        # 编译，并自动把 PDF 装到个人主页的 assets/pdf/
 python3 ~/deploy.py pp    # 发布到 https://psychwangzihao.github.io
+bash ~/cv/push-source.sh  # 把源码同步到 https://github.com/psychwangzihao/cv
 ```
+> CV 末尾有 "Source code for this CV" 链接，指向上面这个公开仓库，
+> 所以改完 CV 记得跑一次 `push-source.sh` 保持同步。
 
 ## 改内容
 所有文字都在 `main.tex` 里，结构一目了然：
