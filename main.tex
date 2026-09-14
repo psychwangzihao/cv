@@ -47,6 +47,17 @@
 {0em}
 {}[\titlerule]
 
+% ---- institution line: handles all four filled/empty combinations ----
+%  #1 = institution, #2 = location
+%  both  -> "Institution (location)"      #1 only -> "Institution"
+%  #2 only -> "location" (italic)          neither -> nothing
+\newcommand{\entryline}[2]{%
+  \ifx&#1&%
+    \ifx&#2&\else\textit{#2}\fi
+  \else
+    \ifx&#2&#1\else{#1 (\textit{#2})}\fi
+  \fi}
+
 % ---- entry: date | short tick | title / institution (location) / detail ----
 % \entry{year}{title}{institution}{location}{detail note}
 \newcommand{\entry}[5]{%
@@ -55,8 +66,7 @@
   \hfill\vline\hfill
   \begin{minipage}[t]{.80\textwidth}
     \textbf{#2}\par
-    \ifx&#3&\ifx&#4&\else\textit{#4}\fi\else{#3 (\textit{#4})}\fi
-    \par
+    \entryline{#3}{#4}\par
     {\footnotesize #5}%
   \end{minipage}\par\vspace{.25cm}%
 }
@@ -98,18 +108,18 @@
 
     \vspace{.25em}
 
-    Zhejiang University, Department of Psychology and Behavioral Sciences
+    {\footnotesize Zhejiang University, Department of Psychology and Behavioral Sciences}
 
     \vspace{.25em}
 
-    \href{mailto:psychwangzihao@zju.edu.cn}{psychwangzihao@zju.edu.cn} \ \textperiodcentered\ \
-    +86 139-5729-1709
+    {\footnotesize \href{mailto:psychwangzihao@zju.edu.cn}{psychwangzihao@zju.edu.cn}
+     \ \textperiodcentered\ \ +86 139-5729-1709}
 
     \vspace{.15em}
 
-    \href{https://github.com/psychwangzihao}{GitHub} \ | \
-    \href{https://orcid.org/0009-0000-3877-3496}{ORCiD} \ | \
-    \href{https://psychwangzihao.github.io}{psychwangzihao.github.io}
+    {\footnotesize \href{https://github.com/psychwangzihao}{GitHub} \ | \
+     \href{https://orcid.org/0009-0000-3877-3496}{ORCiD} \ | \
+     \href{https://psychwangzihao.github.io}{psychwangzihao.github.io}}
   \end{flushright}
 \end{minipage}\par\vspace{.4cm}
 
