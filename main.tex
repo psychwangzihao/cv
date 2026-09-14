@@ -1,0 +1,214 @@
+% ============================================================
+%  Wang Zihao — Curriculum Vitae
+%  Engine: XeLaTeX  (compile with:  tectonic main.tex)
+%  Also works on Overleaf:  upload main.tex, set compiler to XeLaTeX
+%  Font: TeX Gyre Heros (ships with TeX Live / Overleaf)
+%
+%  Layout follows Owen Morgan's LaTeX CV (github.com/opmorgan/cv):
+%    · section headings: bold, with a full-width rule underneath
+%    · each entry: date right-aligned in a 15% column, then a short
+%      vertical tick (\vline) beside the title, then the content
+%    · title bold / institution italic / details in \footnotesize
+%    · monochrome (no accent colour)
+%  Section taxonomy and content are the author's own.
+% ============================================================
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.95in]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyreheros}[
+  Extension=.otf,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic
+]
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+
+% ---- section heading: bold + full-width rule under it (Morgan style) ----
+\titleformat{\section}
+  {\normalfont\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{9pt}{5pt}
+
+% ---- run-in bold label (e.g. "Research Interests:") ----
+\newcommand{\subrun}[1]{\vspace{2pt}\noindent\textbf{#1}\hspace{0.35em}\ignorespaces}
+\newcommand{\cvsec}[1]{\needspace{3\baselineskip}\section*{#1}}
+
+% ---- entry: date | short tick | content ----
+% \entry{date}{title}{body}
+\newcommand{\entry}[3]{%
+  \noindent
+  \begin{minipage}[t]{.17\textwidth}\raggedleft #1\end{minipage}%
+  \hfill\vline\hfill
+  \begin{minipage}[t]{.78\textwidth}
+    \textbf{#2}\par
+    #3%
+  \end{minipage}%
+  \par\vspace{.18cm}%
+}
+
+% ---- compact single-line entry (same skeleton, tighter) ----
+\newcommand{\aline}[2]{%
+  \noindent
+  \begin{minipage}[t]{.17\textwidth}\raggedleft #1\end{minipage}%
+  \hfill\vline\hfill
+  \begin{minipage}[t]{.78\textwidth}#2\end{minipage}%
+  \par\vspace{.1cm}%
+}
+
+% ---- detail bullet list, in \footnotesize (Morgan's "detail note" size) ----
+\newenvironment{detail}
+  {\footnotesize\begin{itemize}[leftmargin=1.05em,itemsep=0.5pt,topsep=1.5pt,parsep=0pt,label=\textbullet]}
+  {\end{itemize}}
+\setlist[itemize]{leftmargin=1.05em,itemsep=0.5pt,topsep=1.5pt,parsep=0pt,label=\textbullet}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% ---------------- header (Morgan style: date left, identity right) -------
+\noindent
+\begin{minipage}[t]{.38\textwidth}
+  \itshape\footnotesize Last updated \today
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{.60\textwidth}
+  \raggedleft
+  {\huge\bfseries Wang Zihao}
+
+  \vspace{.25em}
+
+  {\small Zhejiang University, Department of Psychology and Behavioral Sciences}
+
+  \vspace{.25em}
+
+  {\footnotesize \href{mailto:psychwangzihao@zju.edu.cn}{psychwangzihao@zju.edu.cn}
+   \ \textperiodcentered\ \ +86 139-5729-1709}
+
+  \vspace{.15em}
+
+  {\footnotesize \href{https://github.com/psychwangzihao}{GitHub}
+   \ |\ \href{https://orcid.org/0009-0000-3877-3496}{ORCiD}
+   \ |\ \href{https://psychwangzihao.github.io}{psychwangzihao.github.io}}
+\end{minipage}
+\par\vspace{4pt}
+
+% ---------------- education ----------------
+\cvsec{Education}
+\entry{2025 -- 2029}%
+  {B.Sc. in Psychology (Qiushi Honor's Program)}%
+  {Zhejiang University, Hangzhou \ \textperiodcentered\ \ expected June 2029
+   \par\vspace{1pt}
+   \textit{Research mentor: Dr.\ Yuzheng Hu (Department of Psychology and Behavioral Sciences)}
+   \par\vspace{2pt}
+   \begin{detail}
+     \item GPA: 3.95/4.3 (Top 2 in Honor's Program) \ \textperiodcentered\ \ English: IELTS 8.0
+     \item Courses taken: Research Techniques in Psychology; Language, Mind and Brain;
+           Probability and Mathematical Statistics; Calculus; Linear Algebra; Programming;
+           Ethics and Philosophy of Artificial Intelligence
+   \end{detail}}
+
+\entry{2026}%
+  {Oxford Prospects Winter Visit}%
+  {University of Oxford, Oxford \ \textperiodcentered\ \ Jan--Feb 2026
+   \par\vspace{1pt}
+   \textit{Psychology: Interdisciplinary Frontiers of Behaviour and Mind in the Age of AI (grade A+)}
+   \par\vspace{2pt}
+   \begin{detail}
+     \item Received the Best Presentation Award and the Best Film Award
+   \end{detail}}
+
+% ---------------- research interests & training ----------------
+\cvsec{Research Interests \& Training}
+\subrun{Research Interests:} mental imagery and aphantasia; consciousness (self-model; absence).
+
+\vspace{3pt}
+\subrun{Research Training:}
+\begin{detail}
+  \item \textbf{Lab Rotations:} conducted rotations in social, clinical, developmental and cognitive
+        neuroscience labs, progressively focusing on cognitive neuroscience as a pathway to
+        investigate consciousness.
+  \item \textbf{Methodological \& Philosophical Training:} national academic conferences and
+        philosophy-of-mind seminars; Consciousness Science Reading Group (Swarma Club);
+        Interdisciplinary Reading Club of Aphantasia (IRCA).
+  \item \textbf{Research Participation:} contributed to a study on brain plasticity following
+        spinal-cord-stimulation therapy (Liangzhu Laboratory, Zhejiang University), including
+        stimulus development and fMRI data acquisition.
+  \item \textbf{Technical Skills:} basic training in fMRI, EEG, fNIRS and eye-tracking, with more
+        hands-on practice in behavioural experiments and fMRI; Python and C, currently learning
+        MATLAB, SPM and PsychoPy.
+\end{detail}
+
+% ---------------- research experience ----------------
+\cvsec{Research Experience}
+\entry{2026 -- 2028}%
+  {Undergraduate Researcher, Visual Mental Imagery and Aphantasia}%
+  {Zhejiang University, in collaboration with Dr.\ Jianghao Liu (Paris Brain Institute, ICM)
+   \par\vspace{2pt}
+   \begin{detail}
+     \item \textbf{Research question:} whether imagery signals in aphantasia fail to be generated,
+           or are generated but fail to reach conscious access --- a distinction the existing
+           literature has not resolved.
+     \item \textbf{Design \& methods:} co-designed the study; the protocol combines a near-threshold
+           perceptual detection task with an imagery task, together with electrophysiological and
+           neuromodulation measures of visual-cortical and prefrontal involvement.
+     \item \textbf{Role:} built the experimental platform at Zhejiang University; responsible for
+           participant recruitment, data collection and quality control.
+   \end{detail}}
+
+% ---------------- community service ----------------
+\cvsec{Community Service}
+\entry{2026 -- Present}%
+  {Founder and Coordinator, Consciousness Observers (CO-LAB)}%
+  {Zhejiang University
+   \par\vspace{2pt}
+   \begin{detail}
+     \item Founded an interdisciplinary consciousness-research group spanning several departments;
+           designed and maintain its website; convened its first event in the Department of
+           Psychology.
+   \end{detail}}
+
+\entry{2025 -- 2026}%
+  {Lead Organizer \& Initiator, Psychology Outreach Series, 2050@2026 Global Youth Gathering}%
+  {Hangzhou, China
+   \par\vspace{2pt}
+   \begin{detail}
+     \item Designed and delivered the keynote \emph{Where Is the Mind?}; organized and moderated the
+           \emph{This Is Psychology} forum (recruited three peer speakers and co-presented); and
+           facilitated the \emph{The Psych Crew Assembles} roundtable.
+     \item Coordinated three experiential sessions (nature therapy, movement therapy and an
+           interactive exhibition) by managing practitioner invitations, participant logistics and
+           on-site support.
+   \end{detail}}
+
+\aline{2026 -- 2027}{\textbf{Peer Mentor Group Leader}, Qiushi Psychology Science Class \&
+Brain-Machine Intelligence Innovation Class, Zhejiang University}
+
+\aline{2026 -- Present}{\textbf{Class Monitor}, Psychology (Qiushi Science Class) 2501,
+Chu Kochen Honors College, Zhejiang University}
+
+\aline{2026}{\textbf{Volunteer}, Sino-European International Conference on Human Cognition
+and Artificial Intelligence (Aug--Sep)}
+
+\aline{2026}{\textbf{High-School Science Outreach}, Hangzhou No.\ 2 High School (March);
+Yuqian High School, Lin'an (September)}
+
+% ---------------- awards ----------------
+\cvsec{Honors \& Awards}
+\aline{08/2026}{\textbf{First Prize} (large-project workshop), ``Mind Science and Intelligent
+Future'' International Summer School for Top Students in Psychology --- Ministry of Education
+Psychology Teaching Steering Committee \& Faculty of Psychology, Beijing Normal University}
+\aline{03/2026}{\textbf{Excellent Poster Award}, Psychology (Honor's Program) Research Exhibition,
+Zhejiang University}
+\aline{04/2025}{\textbf{Best Debater \& Best Team}, Design Intelligence Award (DIA) Debate
+Competition}
+
+\vspace{6pt}
+\raggedleft
+\href{https://github.com/psychwangzihao/cv}{Source code for this CV}
+
+\end{document}
