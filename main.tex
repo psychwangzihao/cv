@@ -33,6 +33,7 @@
   ]%
 }
 \usepackage{titlesec}
+\usepackage{needspace}
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
 
@@ -42,7 +43,7 @@
 
 % ---- section heading: bold + full-width rule underneath ----
 \titleformat{\section}
-{\large\bfseries}
+{\needspace{4\baselineskip}\large\bfseries}
 {}
 {0em}
 {}[\titlerule]
@@ -58,18 +59,22 @@
     \ifx&#2&#1\else{#1 (\textit{#2})}\fi
   \fi}
 
+% ---- 条目之间的垂直间距：全篇只由这一个长度控制，方便一次性调紧/调松 ----
+\newlength{\entryskip}
+\setlength{\entryskip}{.25cm}
+
 % ---- entry: date | short tick | title / institution (location) / detail ----
 % \entry{year}{title}{institution}{location}{detail note}
 \newcommand{\entry}[5]{%
   \noindent
   \begin{minipage}[t]{.15\textwidth}\raggedleft #1\end{minipage}%
-  \hfill\vline\hfill
+  \hfill\ifx&#1&\else\vline\fi\hfill
   \begin{minipage}[t]{.80\textwidth}
     \textbf{#2}\par
     \entryline{#3}{#4}\par
     \vspace{2pt}%
     {\footnotesize\setlength{\parskip}{2pt}#5}%
-  \end{minipage}\par\vspace{.25cm}%
+  \end{minipage}\par\vspace{\entryskip}%
 }
 
 % ---- award entry: year | title | detail ----
@@ -80,12 +85,12 @@
   \begin{minipage}[t]{.80\textwidth}
     \textbf{#2}\par
     {\footnotesize #3}%
-  \end{minipage}\par\vspace{.25cm}%
+  \end{minipage}\par\vspace{\entryskip}%
 }
 
 % ---- skill / labelled note: indented bold label + text ----
 \newcommand{\skillentry}[2]{%
-  {\hspace{2em}\textbf{#1}:} {#2}\vspace{.25cm}%
+  {\hspace{2em}\textbf{#1}:} {#2}\vspace{\entryskip}%
 }
 
 \setlength{\parindent}{0in}
@@ -132,7 +137,7 @@
 {B.Sc. in Psychology (Qiushi Honor's Program)}
 {Zhejiang University}
 {Hangzhou, China}
-{Expected June 2029. GPA 3.95/4.3 (Top 2 in Honor's Program).
+{Expected June 2029. GPA 3.93/4.3.
 
  Courses taken: Research Techniques in Psychology; Language, Mind and Brain; Probability and
  Mathematical Statistics; Calculus; Linear Algebra; Programming; Ethics and Philosophy of
@@ -154,27 +159,26 @@
 {Mental imagery and aphantasia; consciousness (self-model; absence).}
 
 \skillentry{Lab Rotations}
-{Conducted rotations in social, clinical, developmental and cognitive neuroscience labs,
- progressively focusing on cognitive neuroscience as a pathway to investigate consciousness.}
+{Rotations in social, clinical, developmental and cognitive neuroscience labs, progressively
+ focusing on cognitive neuroscience as a route to consciousness.}
 
 \skillentry{Methodological \& Philosophical Training}
 {National academic conferences and philosophy-of-mind seminars; Consciousness Science
  Reading Group (Swarma Club); Interdisciplinary Reading Club of Aphantasia (IRCA).}
 
 \skillentry{Research Participation}
-{Contributed to a study on brain plasticity following spinal-cord-stimulation therapy
- (Liangzhu Laboratory, Zhejiang University), including stimulus development and
- fMRI data acquisition.}
+{Contributed to a study on brain plasticity following spinal-cord-stimulation therapy (Liangzhu
+ Laboratory, Zhejiang University), including stimulus development and fMRI data acquisition.}
 
 \skillentry{Technical Skills}
-{Basic training in fMRI, EEG, fNIRS and eye-tracking, with more hands-on practice in
- behavioural experiments and fMRI; Python and C, currently learning MATLAB, SPM and PsychoPy.}
+{Basic training in fMRI, EEG, fNIRS and eye-tracking, with more hands-on practice in behavioural
+ experiments and fMRI; Python and C; learning MATLAB, SPM and PsychoPy.}
 
 % ---------------- research experience ----------------
 \section{Research Experience}
 
 \entry
-{}
+{2026 -- Present}
 {Research Mentee, Dr.\ Yuzheng Hu}
 {Department of Psychology and Behavioral Sciences, Zhejiang University}
 {}
@@ -185,26 +189,66 @@
 {Undergraduate Researcher, Visual Mental Imagery and Aphantasia}
 {Zhejiang University, in collaboration with Dr. Jianghao Liu, Paris Brain Institute (ICM)}
 {}
-{Research question: whether imagery signals in aphantasia fail to be generated, or are
- generated but fail to reach conscious access --- a distinction the existing literature has
- not resolved.
+{Research question: whether imagery signals in aphantasia fail to be generated, or are generated
+ but fail to reach conscious access --- a distinction the literature has not resolved.
 
- Design and methods: co-designed the study; the protocol combines a near-threshold perceptual
- detection task with an imagery task, together with electrophysiological and neuromodulation
- measures of visual-cortical and prefrontal involvement.
+ Design and methods: co-designed the study; the protocol pairs a near-threshold perceptual
+ detection task with an imagery task, plus electrophysiological and neuromodulation measures of
+ visual-cortical and prefrontal involvement.
 
- Role: built the experimental platform at Zhejiang University; responsible for participant
- recruitment, data collection and quality control.}
+ Role: built the experimental platform at Zhejiang University; ran participant recruitment, data
+ collection and quality control.}
 
-% ---------------- community service ----------------
-\section{Community Service}
+% ---------------- talks & presentations ----------------
+% 顺序：先放整个 outreach series（它是下面几场 Outreach 讲座的母体，也是分量最重的一条），
+% 再按时间倒序排单场演讲。日期列用 "Sep 2026" 这种短月份形式 —— .15\textwidth 放得下，
+% 而且演讲是"有具体时间点的事件"，光写年份会丢掉信息。
+\section{Talks \& Presentations}
 
 \entry
-{2026 -- 2027}
-{Peer Mentor, Talented Youth Initiative}
-{School of Psychological and Cognitive Sciences, Peking University}
+{2025 -- 2026}
+{Lead Organizer \& Initiator, Psychology Outreach Series, 2050@2026 Global Youth Gathering}
+{Hangzhou, China}
 {}
+{Designed and delivered the keynote \emph{Where Is the Mind?}; organized and moderated the
+ \emph{This Is Psychology} forum (recruiting three peer speakers); and facilitated the
+ \emph{The Psych Crew Assembles} roundtable. Also ran three experiential sessions --- nature
+ therapy, movement therapy and an interactive exhibition --- handling practitioner
+ invitations, participant logistics and on-site support.}
+
+\entry
+{Sep 2026}
+{Invited Talk, \emph{The Mind's Eye}}
+{2050 Roundtable ``The Form and Substance of Future Perception''}
+{Hangzhou, China}
+{On perception as construction, mental imagery, and what aphantasia reveals about seeing.}
+
+\entry
+{Sep 2026}
+{\emph{Connecting the Dots}}
+{Department of Psychology and Behavioral Sciences, Zhejiang University}
 {}
+{An interactive talk for the incoming undergraduate cohort: interdisciplinary science, the 2050 Gathering,
+ studying abroad and consciousness research.}
+
+\entry
+{Sep 2026}
+{\emph{Is Seeing Believing?}}
+{Yuqian High School, Lin'an}
+{}
+{A talk on mind and brain science, built around an interactive demonstration.}
+
+\entry
+{Mar 2026}
+{Psychology Outreach Talk}
+{Hangzhou No.\ 2 High School}
+{}
+{On how psychology and brain science are actually done.}
+
+% ---------------- leadership & service ----------------
+% 顺序：发起成立的组织 → 受聘的朋辈导师 → 班级职务 → 志愿者。
+% 分量递减，所以不按日期排。
+\section{Leadership \& Service}
 
 \entry
 {2026 -- Present}
@@ -215,15 +259,11 @@
  designed and maintain its website; convened its first event in the Department of Psychology.}
 
 \entry
-{2025 -- 2026}
-{Lead Organizer \& Initiator, Psychology Outreach Series, 2050@2026 Global Youth Gathering}
-{Hangzhou, China}
+{2026 -- 2027}
+{Peer Mentor, Talented Youth Initiative}
+{School of Psychological and Cognitive Sciences, Peking University}
 {}
-{Designed and delivered the keynote \emph{Where Is the Mind?}; organized and moderated the
- \emph{This Is Psychology} forum (recruited three peer speakers and co-presented); and
- facilitated the \emph{The Psych Crew Assembles} roundtable. Coordinated three experiential
- sessions (nature therapy, movement therapy and an interactive exhibition) by managing
- practitioner invitations, participant logistics and on-site support.}
+{}
 
 \entry
 {2026 -- 2027}
@@ -239,20 +279,11 @@
 {Chu Kochen Honors College, Zhejiang University}
 {}
 {}
-{}
 
 \entry
-{2026}
+{Aug 2026}
 {Volunteer, Sino-European International Conference on Human Cognition and Artificial
- Intelligence (Aug--Sep)}
-{}
-{}
-{}
-
-\entry
-{2026}
-{High-School Science Outreach, Hangzhou No.\ 2 High School (March); Yuqian High School,
- Lin'an (September)}
+ Intelligence}
 {}
 {}
 {}
