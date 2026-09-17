@@ -8,9 +8,12 @@
 %    · section heading: \large\bfseries + [\titlerule]
 %    · entry: date in a .15\textwidth column | short \vline tick |
 %      content; title bold / "Institution (\textit{location})" /
-%      detail note in \footnotesize (prose, no bullets)
+%      detail note in \small (prose, no bullets)
+%      —— **没日期时不留那条日期栏**，整幅排（空栏会把文字推到看不出原因的位置）
 %    · \awardentry and \skillentry macros
 %    · blue hyperlinks; "Source code for this CV" at the end
+%  Spacing: 条目间距由 \entryskip 一个值控制（见下），行距由 \linespread 控制。
+%  ⚠️ 这两处 + 姓名下的 \vspace{.85cm} 是整体收紧/放松的三个旋钮，改一处即可全篇生效。
 %  Font: Avenir (as in the reference CV) with a TeX Gyre Heros
 %  fallback, so the same file still compiles on Overleaf.
 %  Content and section taxonomy are the author's own.
@@ -43,7 +46,7 @@
 
 % ---- section heading: bold + full-width rule underneath ----
 \titleformat{\section}
-{\needspace{4\baselineskip}\large\bfseries}
+{\needspace{3\baselineskip}\large\bfseries}
 {}
 {0em}
 {}[\titlerule]
@@ -61,20 +64,31 @@
 
 % ---- 条目之间的垂直间距：全篇只由这一个长度控制，方便一次性调紧/调松 ----
 \newlength{\entryskip}
-\setlength{\entryskip}{.25cm}
+\setlength{\entryskip}{.56cm}
 
 % ---- entry: date | short tick | title / institution (location) / detail ----
 % \entry{year}{title}{institution}{location}{detail note}
 \newcommand{\entry}[5]{%
   \noindent
-  \begin{minipage}[t]{.15\textwidth}\raggedleft #1\end{minipage}%
-  \hfill\ifx&#1&\else\vline\fi\hfill
-  \begin{minipage}[t]{.80\textwidth}
-    \textbf{#2}\par
-    \entryline{#3}{#4}\par
-    \vspace{2pt}%
-    {\footnotesize\setlength{\parskip}{2pt}#5}%
-  \end{minipage}\par\vspace{\entryskip}%
+  \ifx&#1&%
+    % 没有日期：不预留日期栏，整幅排。留着那条空栏的话，文字会被推到一个
+    % 看不出原因的位置，像悬空 —— 空栏只有在放得下日期时才有意义。
+    \begin{minipage}[t]{\textwidth}
+      \textbf{#2}\par
+      \entryline{#3}{#4}\par
+      \vspace{2pt}%
+      {\small\setlength{\parskip}{3pt}#5}%
+    \end{minipage}\par\vspace{\entryskip}%
+  \else
+    \begin{minipage}[t]{.15\textwidth}\raggedleft #1\end{minipage}%
+    \hfill\vline\hfill
+    \begin{minipage}[t]{.80\textwidth}
+      \textbf{#2}\par
+      \entryline{#3}{#4}\par
+      \vspace{2pt}%
+      {\small\setlength{\parskip}{3pt}#5}%
+    \end{minipage}\par\vspace{\entryskip}%
+  \fi
 }
 
 % ---- award entry: year | title | detail ----
@@ -84,7 +98,7 @@
   \hfill\vline\hfill
   \begin{minipage}[t]{.80\textwidth}
     \textbf{#2}\par
-    {\footnotesize #3}%
+    {\small #3}%
   \end{minipage}\par\vspace{\entryskip}%
 }
 
@@ -93,6 +107,7 @@
   {\hspace{2em}\textbf{#1}:} {#2}\vspace{\entryskip}%
 }
 
+\linespread{1.14}
 \setlength{\parindent}{0in}
 
 \author{Wang Zihao}
@@ -127,7 +142,7 @@
     \href{https://orcid.org/0009-0000-3877-3496}{ORCiD} \ | \
     \href{https://psychwangzihao.github.io}{Personal Homepage}
   \end{flushright}
-\end{minipage}\par\vspace{.4cm}
+\end{minipage}\par\vspace{.85cm}
 
 % ---------------- education ----------------
 \section{Education}
@@ -152,7 +167,43 @@
 
  Received the Best Presentation Award and the Best Film Award.}
 
+% ---------------- research experience ----------------
+\section{Research Experience}
+
+\entry
+{}
+{Research Mentee, Dr.\ Yuzheng Hu}
+{Department of Psychology and Behavioral Sciences, Zhejiang University}
+{}
+{}
+
+\entry
+{}
+{Member, Navigating Talent Program, Dr.\ Dian Lyu}
+{State Key Laboratory of Brain-Machine Intelligence, Zhejiang University}
+{}
+{}
+
+\entry
+{2026 -- Present}
+{Visual Mental Imagery and Aphantasia}
+{Zhejiang University, in collaboration with Dr. Jianghao Liu, Paris Brain Institute (ICM)}
+{}
+{Research question: whether imagery signals in aphantasia fail to be generated, or are generated
+ but fail to reach conscious access --- a distinction the literature has not resolved.
+
+ Design and methods: the protocol pairs a near-threshold perceptual detection task with an
+ imagery task, plus electrophysiological and neuromodulation measures of visual-cortical and
+ prefrontal involvement.
+
+ Role: project lead, with Dr. Jianghao Liu as collaborator; built the experimental platform at
+ Zhejiang University, and responsible for participant recruitment, data collection and quality
+ control.}
+
 % ---------------- research interests & training ----------------
+% 整节不跨页：预留的高度略大于该节实际高度（标题 + 4 条），放不下就整节下移。
+% 内容再变长时需要同步调大这个值。
+\needspace{.25\textheight}
 \section{Research Interests \& Training}
 
 \skillentry{Research Interests}
@@ -166,39 +217,9 @@
 {National academic conferences and philosophy-of-mind seminars; Consciousness Science
  Reading Group (Swarma Club); Interdisciplinary Reading Club of Aphantasia (IRCA).}
 
-\skillentry{Research Participation}
-{Contributed to a study on brain plasticity following spinal-cord-stimulation therapy (Liangzhu
- Laboratory, Zhejiang University), including stimulus development and fMRI data acquisition.}
-
 \skillentry{Technical Skills}
 {Basic training in fMRI, EEG, fNIRS and eye-tracking, with more hands-on practice in behavioural
  experiments and fMRI; Python and C; learning MATLAB, SPM and PsychoPy.}
-
-% ---------------- research experience ----------------
-\section{Research Experience}
-
-\entry
-{2026 -- Present}
-{Research Mentee, Dr.\ Yuzheng Hu}
-{Department of Psychology and Behavioral Sciences, Zhejiang University}
-{}
-{}
-
-\entry
-{2026 -- 2028}
-{Undergraduate Researcher, Visual Mental Imagery and Aphantasia}
-{Zhejiang University, in collaboration with Dr. Jianghao Liu, Paris Brain Institute (ICM)}
-{}
-{Research question: whether imagery signals in aphantasia fail to be generated, or are generated
- but fail to reach conscious access --- a distinction the literature has not resolved.
-
- Design and methods: co-designed the study; the protocol pairs a near-threshold perceptual
- detection task with an imagery task, plus electrophysiological and neuromodulation measures of
- visual-cortical and prefrontal involvement.
-
- Role: built the experimental platform at Zhejiang University; ran participant recruitment, data
- collection and quality control.}
-
 % ---------------- talks & presentations ----------------
 % 顺序：先放整个 outreach series（它是下面几场 Outreach 讲座的母体，也是分量最重的一条），
 % 再按时间倒序排单场演讲。日期列用 "Sep 2026" 这种短月份形式 —— .15\textwidth 放得下，
@@ -218,7 +239,7 @@
 
 \entry
 {Sep 2026}
-{Invited Talk, \emph{The Mind's Eye}}
+{\emph{The Mind's Eye}}
 {2050 Roundtable ``The Form and Substance of Future Perception''}
 {Hangzhou, China}
 {On perception as construction, mental imagery, and what aphantasia reveals about seeing.}
@@ -240,10 +261,10 @@
 
 \entry
 {Mar 2026}
-{Psychology Outreach Talk}
+{\emph{The Science of Learning}}
 {Hangzhou No.\ 2 High School}
 {}
-{On how psychology and brain science are actually done.}
+{On how psychology and brain science are actually done, and what they say about learning.}
 
 % ---------------- leadership & service ----------------
 % 顺序：发起成立的组织 → 受聘的朋辈导师 → 班级职务 → 志愿者。
@@ -277,6 +298,13 @@
 {2026 -- Present}
 {Class Monitor, Psychology (Qiushi Honor's Program) 2501}
 {Chu Kochen Honors College, Zhejiang University}
+{}
+{}
+
+\entry
+{2026 -- Present}
+{Member, Science Popularization Center}
+{Zhejiang University}
 {}
 {}
 
