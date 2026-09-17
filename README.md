@@ -19,28 +19,35 @@ bash ~/cv/push-source.sh  # 把源码同步到 https://github.com/psychwangzihao
 | 想改什么 | 找哪里 |
 |---|---|
 | 姓名 / 联系方式 | `% ---------------- header ----------------` |
-| 教育经历 | `\cvsec{EDUCATION}` |
-| 研究兴趣与受训 | `\cvsec{RESEARCH INTERESTS \& TRAINING}` |
-| 研究经历 | `\cvsec{RESEARCH EXPERIENCE}` |
-| 社会服务 | `\cvsec{COMMUNITY SERVICE}` |
-| 荣誉奖项 | `\cvsec{HONORS \& AWARDS}` |
+| 教育经历 | `\section{Education}` |
+| 研究兴趣与受训 | `\section{Research Interests \& Training}` |
+| 研究经历 | `\section{Research Experience}` |
+| 演讲与报告 | `\section{Talks \& Presentations}` |
+| 领导力与社会服务 | `\section{Leadership \& Service}` |
+| 荣誉奖项 | `\section{Honors \& Awards}` |
+| 语言 | `\section{Languages}` |
 
-> 按本人要求：**不设 References 与 Presentations 两节**（尚无专属学术报告）。
+> 按本人要求：**不设 References 一节**。
 > 章节分类沿用本人原有方式；排版与措辞参考了两份学界 CV（O. Morgan；K. Fang）。
 
 一条经历的标准写法（左边日期、右边内容）：
 ```latex
-\entry{09/2026 -- 09/2028}%
-  {条目标题（加粗）}{%
-  \textit{副标题 / 机构}\\[1pt]
-  \begin{itemize}
-    \item 一条要点
-  \end{itemize}}
+\entry
+{2026 -- 2028}                       % 日期（空着就不画左边那根竖线）
+{Undergraduate Researcher, ...}      % 标题（加粗）
+{Zhejiang University, ...}           % 机构
+{Hangzhou, China}                    % 地点（可选，非空时显示成斜体括号）
+{一段说明文字。空着就只显示标题和机构。}
 ```
-注意 LaTeX 里 `&` 要写成 `\&`，`%` 要写成 `\%`。
+
+标题下面还有几行正文时，用空行分段（段间距由 `\entry` 里的 `\parskip` 控制）。
+注意 LaTeX 里 `&` 要写成 `\&`，`%` 要写成 `\%`，引号用 ` `` ` 和 `''`。
 
 ## 环境
 - 版式：**参考 Owen Morgan 的 LaTeX CV（github.com/opmorgan/cv）**——章节标题加粗 + 下方通栏横线；每条经历"左日期栏 → 短竖杠 → 正文"；标题加粗、机构斜体、细节 `\footnotesize`；整体黑白不加色。
+- 想整体调松/调紧：改 `\setlength{\entryskip}{.25cm}` 一个值即可，
+  全篇所有条目间距都由它控制（日期列宽度是 `.15\textwidth`，
+  放得下 `Sep 2026` 这种短月份，放不下 `12/2025 – 04/2026`）。
 - 编译器：**XeLaTeX**。本机用 [Tectonic](https://tectonic-typesetting.github.io)
   （已装：`brew install tectonic`），它会自动下载所需宏包，无需装 5GB 的 MacTeX。
 - 字体：**TeX Gyre Heros**（Helvetica 风）。想换字体改 `\setmainfont` 即可，
