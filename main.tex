@@ -50,18 +50,18 @@
 %   \paraskip   条目**内部**段落之间（约 0.3 × \entryskip）
 % 之前这里是 em / cm / pt 三种单位混用、彼此没有关系，所以看上去"节奏不统一"。
 \newlength{\entryskip}
-\setlength{\entryskip}{.44cm}
+\setlength{\entryskip}{.41cm}
 \newlength{\paraskip}
-\setlength{\paraskip}{.14cm}
+\setlength{\paraskip}{.13cm}
 
 \titleformat{\section}
 {\needspace{3\baselineskip}\large\bfseries}
 {}
 {0em}
-{}[\titlerule]
+{}[\vspace{.5\paraskip}\titlerule]
 
 % 章节与正文的呼吸：上面松、下面紧，一段一段自然分得开。
-\titlespacing*{\section}{0pt}{1.7\entryskip}{.5\entryskip}
+\titlespacing*{\section}{0pt}{1.3\entryskip}{.55\entryskip}
 
 % ---- institution line: handles all four filled/empty combinations ----
 %  #1 = institution, #2 = location
@@ -116,7 +116,7 @@
   {\hspace{2em}\textbf{#1}:} {#2}\vspace{\entryskip}%
 }
 
-\linespread{1.14}
+\linespread{1.12}
 \setlength{\parindent}{0in}
 
 \author{Wang Zihao}
