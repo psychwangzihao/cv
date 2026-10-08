@@ -13,7 +13,7 @@
 %    · \awardentry and \skillentry macros
 %    · blue hyperlinks; "Source code for this CV" at the end
 %  Spacing: 条目间距由 \entryskip 一个值控制（见下），行距由 \linespread 控制。
-%  ⚠️ 这两处 + 姓名下的 \vspace{.85cm} 是整体收紧/放松的三个旋钮，改一处即可全篇生效。
+%  ⚠️ 这两处 + 姓名下的 \vspace{1.8\entryskip} 是整体收紧/放松的三个旋钮，改一处即可全篇生效。
 %  Font: Avenir (as in the reference CV) with a TeX Gyre Heros
 %  fallback, so the same file still compiles on Overleaf.
 %  Content and section taxonomy are the author's own.
@@ -45,6 +45,15 @@
 \renewcommand{\href}[3][blue]{\oldhref{#2}{\color{#1}{#3}}}
 
 % ---- section heading: bold + full-width rule underneath ----
+% ---- 全篇的垂直节奏：只有两个长度，其余所有留白都是它们的倍数 ----
+%   \entryskip  条目之间（改这一个值，整篇等比例收放）
+%   \paraskip   条目**内部**段落之间（约 0.3 × \entryskip）
+% 之前这里是 em / cm / pt 三种单位混用、彼此没有关系，所以看上去"节奏不统一"。
+\newlength{\entryskip}
+\setlength{\entryskip}{.44cm}
+\newlength{\paraskip}
+\setlength{\paraskip}{.14cm}
+
 \titleformat{\section}
 {\needspace{3\baselineskip}\large\bfseries}
 {}
@@ -52,7 +61,7 @@
 {}[\titlerule]
 
 % 章节与正文的呼吸：上面松、下面紧，一段一段自然分得开。
-\titlespacing*{\section}{0pt}{1.7em}{.5em}
+\titlespacing*{\section}{0pt}{1.7\entryskip}{.5\entryskip}
 
 % ---- institution line: handles all four filled/empty combinations ----
 %  #1 = institution, #2 = location
@@ -65,9 +74,6 @@
     \ifx&#2&#1\else{#1 (\textit{#2})}\fi
   \fi}
 
-% ---- 条目之间的垂直间距：全篇只由这一个长度控制，方便一次性调紧/调松 ----
-\newlength{\entryskip}
-\setlength{\entryskip}{.46cm}
 
 % ---- entry: date | short tick | title / institution (location) / detail ----
 % \entry{year}{title}{institution}{location}{detail note}
@@ -79,8 +85,8 @@
     \begin{minipage}[t]{\textwidth}
       \textbf{#2}\par
       \entryline{#3}{#4}\par
-      \vspace{2pt}%
-      {\small\setlength{\parskip}{3pt}#5}%
+      \vspace{.15\entryskip}%
+      {\small\setlength{\parskip}{\paraskip}#5}%
     \end{minipage}\par\vspace{\entryskip}%
   \else
     \begin{minipage}[t]{.15\textwidth}\raggedleft #1\end{minipage}%
@@ -88,8 +94,8 @@
     \begin{minipage}[t]{.80\textwidth}
       \textbf{#2}\par
       \entryline{#3}{#4}\par
-      \vspace{2pt}%
-      {\small\setlength{\parskip}{3pt}#5}%
+      \vspace{.15\entryskip}%
+      {\small\setlength{\parskip}{\paraskip}#5}%
     \end{minipage}\par\vspace{\entryskip}%
   \fi
 }
@@ -120,7 +126,7 @@
 \begin{document}
 
 % 姓名区上方留白：整页的第一口气，留足了才显得沉稳。
-\vspace*{.8cm}
+\vspace*{.5\entryskip}
 
 % ---------------- header (as in the reference: date left, identity right) --
 \noindent
@@ -133,22 +139,22 @@
   \begin{flushright}
     {\huge\bfseries Wang Zihao}
 
-    \vspace{.25em}
+    \vspace{.5\entryskip}
 
     Department of Psychology and Behavioral Sciences,\\
     Zhejiang University
 
-    \vspace{.25em}
+    \vspace{.5\entryskip}
 
     \href{mailto:psychwangzihao@zju.edu.cn}{psychwangzihao@zju.edu.cn}
     \ \textperiodcentered\ \ +86 139-5729-1709
 
-    \vspace{.15em}
+    \vspace{.3\entryskip}
 
     \href{https://orcid.org/0009-0000-3877-3496}{ORCiD} \ | \
     \href{https://psychwangzihao.github.io}{Personal Homepage}
   \end{flushright}
-\end{minipage}\par\vspace{1.15cm}
+\end{minipage}\par\vspace{2.5\entryskip}
 
 % ---------------- education ----------------
 \section{Education}
@@ -189,7 +195,7 @@
 % ---------------- research interests & training ----------------
 % 整节不跨页：预留的高度略大于该节实际高度（标题 + 4 条），放不下就整节下移。
 % 内容再变长时需要同步调大这个值。
-\needspace{.16\textheight}
+\needspace{.2\textheight}
 \section{Research Interests \& Training}
 
 \skillentry{Research Interests}
