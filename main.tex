@@ -51,6 +51,9 @@
 {0em}
 {}[\titlerule]
 
+% 章节与正文的呼吸：上面松、下面紧，一段一段自然分得开。
+\titlespacing*{\section}{0pt}{1.7em}{.5em}
+
 % ---- institution line: handles all four filled/empty combinations ----
 %  #1 = institution, #2 = location
 %  both  -> "Institution (location)"      #1 only -> "Institution"
@@ -64,7 +67,7 @@
 
 % ---- 条目之间的垂直间距：全篇只由这一个长度控制，方便一次性调紧/调松 ----
 \newlength{\entryskip}
-\setlength{\entryskip}{.56cm}
+\setlength{\entryskip}{.46cm}
 
 % ---- entry: date | short tick | title / institution (location) / detail ----
 % \entry{year}{title}{institution}{location}{detail note}
@@ -142,21 +145,27 @@
     \href{https://orcid.org/0009-0000-3877-3496}{ORCiD} \ | \
     \href{https://psychwangzihao.github.io}{Personal Homepage}
   \end{flushright}
-\end{minipage}\par\vspace{.85cm}
+\end{minipage}\par\vspace{.7cm}
 
 % ---------------- education ----------------
 \section{Education}
 
 \entry
 {2025 -- 2029}
-{B.Sc. in Psychology (Qiushi Honor's Program)}
+{B.Sc. in Psychology (Qiushi Honors Program)}
 {Zhejiang University}
 {Hangzhou, China}
 {Expected June 2029. GPA 3.93/4.3.
 
- Courses taken: Research Techniques in Psychology; Language, Mind and Brain; Probability and
- Mathematical Statistics; Calculus; Linear Algebra; Programming; Ethics and Philosophy of
- Artificial Intelligence.}
+ \textbf{Methods \& statistics}: Experimental Design and Statistics in Psychology; Structural
+ Equation Modeling and Its Applications; Research Techniques in Psychology.
+
+ \textbf{Computing}: Psychology Experiment Programming; Lab and Fundamentals of Programming.
+
+ \textbf{Mathematics \& logic}: Probability and Mathematical Statistics; Linear Algebra (H);
+ Calculus (H); Logics (H); Philosophical Logic.
+
+ \textbf{Foundations}: General Psychology; Language, Mind and Brain.}
 
 \entry
 {2026}
@@ -174,12 +183,32 @@
 {Ithaca, NY, USA}
 {Undergraduate coursework in Cognitive Science.}
 
+% ---------------- research interests & training ----------------
+% 整节不跨页：预留的高度略大于该节实际高度（标题 + 4 条），放不下就整节下移。
+% 内容再变长时需要同步调大这个值。
+\needspace{.2\textheight}
+\section{Research Interests \& Training}
+
+\skillentry{Research Interests}
+{Mental imagery and aphantasia; consciousness (self-model; absence).}
+
+\skillentry{Lab Rotations}
+{Rotations in social, clinical, developmental and cognitive neuroscience labs, progressively
+ focusing on cognitive neuroscience as a route to consciousness.}
+
+\skillentry{Methodological \& Philosophical Training}
+{National academic conferences and philosophy-of-mind seminars; Consciousness Science
+ Reading Group (Swarma Club); Interdisciplinary Reading Club of Aphantasia (IRCA).}
+
+\skillentry{Technical Skills}
+{Basic training in fMRI, EEG, fNIRS and eye-tracking, with more hands-on practice in behavioural
+ experiments and fMRI; Python and C; learning MATLAB, SPM and PsychoPy.}
 % ---------------- research experience ----------------
 \section{Research Experience}
 
 \entry
 {}
-{Research Mentee, Dr.\ Yuzheng Hu}
+{Undergraduate Research Assistant, Dr.\ Yuzheng Hu}
 {Department of Psychology and Behavioral Sciences, Zhejiang University}
 {}
 {}
@@ -204,29 +233,9 @@
  prefrontal involvement.
 
  Role: project lead, with Dr. Jianghao Liu as collaborator; built the experimental platform at
- Zhejiang University, and responsible for participant recruitment, data collection and quality
- control.}
+ Zhejiang University and was responsible for participant recruitment, data collection, and
+ quality control.}
 
-% ---------------- research interests & training ----------------
-% 整节不跨页：预留的高度略大于该节实际高度（标题 + 4 条），放不下就整节下移。
-% 内容再变长时需要同步调大这个值。
-\needspace{.25\textheight}
-\section{Research Interests \& Training}
-
-\skillentry{Research Interests}
-{Mental imagery and aphantasia; consciousness (self-model; absence).}
-
-\skillentry{Lab Rotations}
-{Rotations in social, clinical, developmental and cognitive neuroscience labs, progressively
- focusing on cognitive neuroscience as a route to consciousness.}
-
-\skillentry{Methodological \& Philosophical Training}
-{National academic conferences and philosophy-of-mind seminars; Consciousness Science
- Reading Group (Swarma Club); Interdisciplinary Reading Club of Aphantasia (IRCA).}
-
-\skillentry{Technical Skills}
-{Basic training in fMRI, EEG, fNIRS and eye-tracking, with more hands-on practice in behavioural
- experiments and fMRI; Python and C; learning MATLAB, SPM and PsychoPy.}
 % ---------------- talks & presentations ----------------
 % 顺序：先放整个 outreach series（它是下面几场 Outreach 讲座的母体，也是分量最重的一条），
 % 再按时间倒序排单场演讲。日期列用 "Sep 2026" 这种短月份形式 —— .15\textwidth 放得下，
@@ -295,7 +304,7 @@
 
 \entry
 {2026 -- 2027}
-{Peer Mentor Group Leader, Psychology (Qiushi Honor's Program) \& Brain-Machine
+{Peer Mentor Group Leader, Psychology (Qiushi Honors Program) \& Brain-Machine
  Intelligence Class}
 {Zhejiang University}
 {}
@@ -303,7 +312,7 @@
 
 \entry
 {2026 -- Present}
-{Class Monitor, Psychology (Qiushi Honor's Program) 2501}
+{Class Monitor, Psychology (Qiushi Honors Program) 2501}
 {Chu Kochen Honors College, Zhejiang University}
 {}
 {}
@@ -334,7 +343,7 @@
 
 \awardentry
 {2026}
-{Excellent Poster Award, Psychology (Honor's Program) Research Exhibition}
+{Excellent Poster Award, Psychology (Honors Program) Research Exhibition}
 {Department of Psychology and Behavioral Sciences, Zhejiang University.}
 
 \awardentry
