@@ -121,6 +121,18 @@
 \linespread{1.12}
 \setlength{\parindent}{0in}
 
+% 断词：LaTeX 默认只要词头留 2 个字母就允许断开，于是出现
+%   de-signed、Ar-tificial、As-sembles 这种"行末只剩两个字母"的断法。
+% 把词头下限提到 3，这类就没了。
+% ⚠️ 词尾下限（\righthyphenmin）**不能动**：试过提到 4，行末可断点变少，
+%    第 221 行直接顶出右边界 12.8pt（Overfull \hbox）。默认的 3 保持原样。
+\lefthyphenmin=3
+
+% 行末兜底：万一某一行实在断不开，允许它多用一点词距把它消化掉，而不是顶出
+% 右边界。之前 "Methodological & Philosophical Training" 那一行就溢出 2pt（0.7mm）——
+% 是加了 "and international" 之后才出现的。这个值只在"这行排不下"时才起作用。
+\setlength{\emergencystretch}{1em}
+
 \author{Wang Zihao}
 \title{CV}
 \date{\today}
@@ -156,14 +168,14 @@
     \href{https://orcid.org/0009-0000-3877-3496}{ORCiD} \ | \
     \href{https://psychwangzihao.github.io}{Personal Homepage}
   \end{flushright}
-\end{minipage}\par\vspace{4.6\entryskip}
+\end{minipage}\par\vspace{2.56\entryskip}
 
 % ---------------- education ----------------
 \section{Education}
 
 \entry
 {2025 -- 2029}
-{B.Sc. in Psychology (Qiushi Honors Program)}
+{B.Sc. in Psychology (Qiushi Honor's Program)}
 {Zhejiang University}
 {Hangzhou, China}
 {Expected June 2029. GPA 3.93/4.3.
@@ -173,10 +185,11 @@
 
  \textbf{Computing}: Psychology Experiment Programming; Lab and Fundamentals of Programming.
 
- \textbf{Mathematics \& logic}: Probability and Mathematical Statistics; Linear Algebra (H);
- Calculus (H); Logics (H); Philosophical Logic.
+ \textbf{Mathematics, logic \& physics}: Probability and Mathematical Statistics; Linear Algebra (H);
+ Calculus (H); Logics (H); Philosophical Logic; University Physics and Experiment.
 
- \textbf{Foundations}: General Psychology; Language, Mind and Brain.}
+ \textbf{Foundations}: General Psychology; Language, Mind and Brain; Theory and Practice in
+ Psychology; Ethics and Philosophy of Artificial Intelligence.}
 
 \entry
 {2026}
@@ -201,19 +214,19 @@
 \section{Research Interests \& Training}
 
 \skillentry{Research Interests}
-{Mental imagery and aphantasia; consciousness (self-model; absence).}
+{Consciousness and mental imagery.}
 
 \skillentry{Lab Rotations}
 {Rotations in social, clinical, developmental and cognitive neuroscience labs, progressively
  focusing on cognitive neuroscience as a route to consciousness.}
 
 \skillentry{Methodological \& Philosophical Training}
-{National academic conferences and philosophy-of-mind seminars; Consciousness Science
+{National and international academic conferences and philosophy-of-mind seminars; Consciousness Science
  Reading Group (Swarma Club); Interdisciplinary Reading Club of Aphantasia (IRCA).}
 
 \skillentry{Technical Skills}
-{Basic training in fMRI, EEG, fNIRS and eye-tracking, with more hands-on practice in behavioural
- experiments and fMRI; Python and C; learning MATLAB, SPM and PsychoPy.}
+{Hands-on practice in behavioural experiments, fMRI, EEG and eye-tracking; Python, C, MATLAB
+ and PsychoPy.}
 % ---------------- research experience ----------------
 \section{Research Experience}
 
@@ -236,16 +249,15 @@
 {Visual Mental Imagery and Aphantasia}
 {Zhejiang University, in collaboration with Dr. Jianghao Liu, Paris Brain Institute (ICM)}
 {}
-{Research question: whether imagery signals in aphantasia fail to be generated, or are generated
- but fail to reach conscious access --- a distinction the literature has not resolved.
+{Research content: using signal detection theory to study how imagination affects perception.
 
  Design and methods: the protocol pairs a near-threshold perceptual detection task with an
  imagery task, plus electrophysiological and neuromodulation measures of visual-cortical and
  prefrontal involvement.
 
  Role: project lead, with Dr. Jianghao Liu as collaborator; built the experimental platform at
- Zhejiang University and was responsible for participant recruitment, data collection, and
- quality control.}
+ Zhejiang University and was responsible for participant recruitment, data collection and
+ analysis, and quality control.}
 
 % ---------------- talks & presentations ----------------
 % 顺序：先放整个 outreach series（它是下面几场 Outreach 讲座的母体，也是分量最重的一条），
@@ -304,7 +316,7 @@
 
 \awardentry
 {2026}
-{Excellent Poster Award, Psychology (Qiushi Honors Program) Research Exhibition}
+{Excellent Poster Award, Psychology (Qiushi Honor's Program) Research Exhibition}
 {Department of Psychology and Behavioral Sciences, Zhejiang University.}
 
 \awardentry
@@ -323,7 +335,8 @@
 {Zhejiang University}
 {}
 {Founded an interdisciplinary consciousness-research group spanning several departments;
- designed and maintain its website; convened its first event in the Department of Psychology.}
+ designed and maintain its website; convened its first event in the Department of Psychology
+ and Behavioral Sciences.}
 
 \entry
 {2026 -- 2027}
@@ -334,7 +347,7 @@
 
 \entry
 {2026 -- 2027}
-{Peer Mentor Group Leader, Psychology (Qiushi Honors Program) \& Brain-Machine
+{Peer Mentor Group Leader, Psychology (Qiushi Honor's Program) \& Brain-Machine
  Intelligence Class}
 {Zhejiang University}
 {}
@@ -342,7 +355,7 @@
 
 \entry
 {2026 -- Present}
-{Class Monitor, Psychology (Qiushi Honors Program) 2501}
+{Class Monitor, Psychology (Qiushi Honor's Program) 2501}
 {Chu Kochen Honors College, Zhejiang University}
 {}
 {}
