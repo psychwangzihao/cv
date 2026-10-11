@@ -55,6 +55,8 @@
 \setlength{\paraskip}{.13cm}
 \newlength{\skillskip}   % 单行条目之间（Languages、Technical Skills）
 \setlength{\skillskip}{.6\entryskip}
+\newlength{\awardskip}   % 奖项条目之间：全是单行，用满 \entryskip 会显得一条条浮开
+\setlength{\awardskip}{.6\entryskip}
 
 \titleformat{\section}
 {\needspace{3\baselineskip}\large\bfseries}
@@ -110,7 +112,7 @@
   \begin{minipage}[t]{.80\textwidth}
     \textbf{#2}\par
     {\small #3}%
-  \end{minipage}\par\vspace{\entryskip}%
+  \end{minipage}\par\vspace{\awardskip}%
 }
 
 % ---- skill / labelled note: indented bold label + text ----
@@ -310,7 +312,12 @@
 
 \awardentry
 {2026}
-{Outstanding Student; Academic Excellence Pacesetter; International Exchange Pacesetter}
+{Outstanding Student}
+{Zhejiang University.}
+
+\awardentry
+{2026}
+{Academic Excellence Pacesetter \& International Exchange Pacesetter}
 {Zhejiang University.}
 
 \awardentry
@@ -392,8 +399,5 @@
 \skillentry{Chinese}{Native}
 
 \skillentry{English}{IELTS 8.0}
-
-\raggedleft
-\href{https://github.com/psychwangzihao/cv}{Source code for this CV}
 
 \end{document}
