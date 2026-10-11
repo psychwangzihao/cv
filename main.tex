@@ -55,8 +55,6 @@
 \setlength{\paraskip}{.13cm}
 \newlength{\skillskip}   % 单行条目之间（Languages、Technical Skills）
 \setlength{\skillskip}{.6\entryskip}
-\newlength{\awardskip}   % 奖项条目之间：全是单行，用满 \entryskip 会显得一条条浮开
-\setlength{\awardskip}{.6\entryskip}
 
 \titleformat{\section}
 {\needspace{3\baselineskip}\large\bfseries}
@@ -112,7 +110,7 @@
   \begin{minipage}[t]{.80\textwidth}
     \textbf{#2}\par
     {\small #3}%
-  \end{minipage}\par\vspace{\awardskip}%
+  \end{minipage}\par\vspace{\entryskip}%
 }
 
 % ---- skill / labelled note: indented bold label + text ----
