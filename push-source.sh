@@ -1,50 +1,60 @@
 #!/bin/bash
 # Push the CV source to the public repo github.com/psychwangzihao/cv
 # so that the "Source code for this CV" link on the PDF stays valid.
-#   Usage:  bash ~/cv/push-source.sh
+#
+#   Usage:  bash cv/push-source.sh
+#
+# Uses the same token lookup as deploy.py (--token / $GITHUB_TOKEN /
+# $GH_TOKEN / <workspace>/.deploy_token / /tmp/gh_token.env) and the same
+# stdlib-only API helper, so no `gh` CLI is required.  All changed files go
+# into a single commit.
 set -e
 cd "$(dirname "$0")"
+ROOT="$(cd .. && pwd)"
 
-# gh needs credentials: prefer the env, else the local token file
-[ -z "$GH_TOKEN" ] && [ -f /tmp/gh_token.env ] && source /tmp/gh_token.env
+python3 - "$ROOT" <<'PY'
+import base64, os, sys
 
-python3 - <<'PY'
-import base64, json, os, subprocess, sys
-REPO = 'psychwangzihao/cv'
-BRANCH = 'main'
-FILES = ['main.tex', 'README.md', 'build.sh', 'push-source.sh']
+ROOT = sys.argv[1]
+sys.path.insert(0, ROOT)
+import deploy                                   # noqa: E402  (shares token + api)
 
-def gh(method, ep, payload=None, allow_fail=False):
-    cmd = ['gh', 'api', '--method', method, f'repos/{REPO}/{ep}']
-    tmp = None
-    if payload is not None:
-        tmp = '/tmp/push_payload.json'
-        open(tmp, 'w').write(json.dumps(payload))
-        cmd += ['--input', tmp]
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
-    if tmp: os.remove(tmp)
-    if r.returncode != 0:
-        if allow_fail:
-            return None
-        print('API FAIL', ep, r.stderr[:300]); sys.exit(1)
-    return json.loads(r.stdout) if r.stdout.strip() else {}
+deploy.load_token()
+REPO = "psychwangzihao/cv"
+BRANCH = "main"
+FILES = ["main.tex", "README.md", "build.sh", "push-source.sh"]
 
-for f in FILES:
-    if not os.path.exists(f):
+head = deploy.api("GET", f"repos/{REPO}/git/ref/heads/{BRANCH}")["object"]["sha"]
+tree = deploy.api("GET", f"repos/{REPO}/git/trees/{head}?recursive=1")["tree"]
+remote = {e["path"]: e["sha"] for e in tree if e["type"] == "blob"}
+
+entries, changed = [], []
+for name in FILES:
+    if not os.path.isfile(name):
+        print(f"  skip (missing): {name}")
         continue
-    existing = gh('GET', f'contents/{f}?ref={BRANCH}', allow_fail=True)
-    payload = {
-        'message': f'Update {f}',
-        'content': base64.b64encode(open(f, 'rb').read()).decode(),
-        'branch': BRANCH,
-    }
-    if existing and 'sha' in existing:
-        payload['sha'] = existing['sha']          # update
-        action = 'updated'
-    else:
-        action = 'created'
-    res = gh('PUT', f'contents/{f}', payload)
-    print(f'  {action}: {f}  ({res.get("commit", {}).get("sha", "")[:7]})')
+    raw = open(name, "rb").read()
+    blob = deploy.api("POST", f"repos/{REPO}/git/blobs",
+                      {"content": base64.b64encode(raw).decode(),
+                       "encoding": "base64"})
+    if remote.get(name) == blob["sha"]:
+        print(f"  unchanged: {name}")
+        continue
+    entries.append({"path": name, "mode": "100644", "type": "blob",
+                    "sha": blob["sha"]})
+    changed.append(name)
 
-print('\n✅ source synced -> https://github.com/psychwangzihao/cv')
+if not entries:
+    print("\n✓ source already up to date -> https://github.com/psychwangzihao/cv")
+    raise SystemExit(0)
+
+new_tree = deploy.api("POST", f"repos/{REPO}/git/trees",
+                      {"base_tree": head, "tree": entries})["sha"]
+commit = deploy.api("POST", f"repos/{REPO}/git/commits",
+                    {"message": "Update CV source: " + ", ".join(changed),
+                     "tree": new_tree, "parents": [head]})["sha"]
+deploy.api("PATCH", f"repos/{REPO}/git/refs/heads/{BRANCH}",
+           {"sha": commit, "force": False})
+print(f"  commit {commit[:7]}: {', '.join(changed)}")
+print(f"\n✅ source synced -> https://github.com/psychwangzihao/cv")
 PY

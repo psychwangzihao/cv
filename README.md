@@ -5,13 +5,24 @@
 数据都写在里面（不像 Word 那样靠大表格对齐，所以改内容不会把排版弄乱）。
 
 ## 怎么用
+工作区的目录结构（脚本都按这个结构自动定位路径，搬到别处也能用）：
+
+```
+GitHub/                     ← 工作区
+├── deploy.py               ← 两个站点的发布/检查工具
+├── personal-homepage/      ← psychwangzihao.github.io
+├── colab-website/          ← consciousness-observers.github.io
+└── cv/                     ← 本目录（源码 + 构建脚本）
+```
+
 ```bash
-bash ~/cv/build.sh        # 编译，并自动把 PDF 装到个人主页的 assets/pdf/
-python3 ~/deploy.py pp    # 发布到 https://psychwangzihao.github.io
-bash ~/cv/push-source.sh  # 把源码同步到 https://github.com/psychwangzihao/cv
+bash cv/build.sh          # 编译，并把 PDF 自动装到 personal-homepage/assets/pdf/
+python3 deploy.py pp      # 发布到 https://psychwangzihao.github.io
+bash cv/push-source.sh    # 把源码同步到 https://github.com/psychwangzihao/cv
 ```
 > CV 末尾有 "Source code for this CV" 链接，指向上面这个公开仓库，
 > 所以改完 CV 记得跑一次 `push-source.sh` 保持同步。
+> 两个脚本都必须从工作区根目录运行（或写全路径），它们在内部自己 `cd`。
 
 ## 改内容
 所有文字都在 `main.tex` 里，结构一目了然：
@@ -48,9 +59,11 @@ bash ~/cv/push-source.sh  # 把源码同步到 https://github.com/psychwangzihao
 - 想整体调松/调紧：改 `\setlength{\entryskip}{.25cm}` 一个值即可，
   全篇所有条目间距都由它控制（日期列宽度是 `.15\textwidth`，
   放得下 `Sep 2026` 这种短月份，放不下 `12/2025 – 04/2026`）。
-- 编译器：**XeLaTeX**。本机用 [Tectonic](https://tectonic-typesetting.github.io)
-  （已装：`brew install tectonic`），它会自动下载所需宏包，无需装 5GB 的 MacTeX。
-- 字体：**TeX Gyre Heros**（Helvetica 风）。想换字体改 `\setmainfont` 即可，
+- 编译器：**XeLaTeX**。用 [Tectonic](https://tectonic-typesetting.github.io)
+  （本机已放了一份在 `../.tools/tectonic`，也可以用 `brew install tectonic`），
+  它会自动下载所需宏包，无需装 5GB 的 MacTeX。
+- 字体：**Avenir**（参考 CV 用的字体）；本机没有 Avenir 时自动退回
+  **TeX Gyre Heros**（Helvetica 风）。想换字体改 `\setmainfont` 即可，
   已在本机验证可用：`libertinus`、`fira`、`sourcesanspro`。
 - 也能放 **Overleaf**：上传 `main.tex`，把编译器设为 XeLaTeX 即可。
 
