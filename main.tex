@@ -47,14 +47,19 @@
 % ---- section heading: bold + full-width rule underneath ----
 % ---- 全篇的垂直节奏：只有两个长度，其余所有留白都是它们的倍数 ----
 %   \entryskip  条目之间（改这一个值，整篇等比例收放）
-%   \paraskip   条目**内部**段落之间（约 0.3 × \entryskip）
+%   \paraskip   条目**内部**段落之间（约 0.26 × \entryskip）
+%
+%  2026-10-28：为了让每一页都从章节标题开始（Technical Skills 不再掉到第 2 页
+%  开头），把下列四个值一起收了一点。再动它们之前先看到底哪一页被撑开：
+%      .41 -> .39 (entryskip)   .13 -> .10 (paraskip)
+%      .6  -> .45 (skillskip)   1.3/.9 -> 1.1/.75 (section titlespacing)
 % 之前这里是 em / cm / pt 三种单位混用、彼此没有关系，所以看上去"节奏不统一"。
 \newlength{\entryskip}
-\setlength{\entryskip}{.41cm}
+\setlength{\entryskip}{.39cm}
 \newlength{\paraskip}
-\setlength{\paraskip}{.13cm}
+\setlength{\paraskip}{.10cm}
 \newlength{\skillskip}   % 单行条目之间（Languages、Technical Skills）
-\setlength{\skillskip}{.6\entryskip}
+\setlength{\skillskip}{.45\entryskip}
 
 \titleformat{\section}
 {\needspace{3\baselineskip}\large\bfseries}
@@ -63,7 +68,7 @@
 {}[\titlerule]
 
 % 章节与正文的呼吸：上面松、下面紧，一段一段自然分得开。
-\titlespacing*{\section}{0pt}{1.3\entryskip}{.9\entryskip}
+\titlespacing*{\section}{0pt}{1.1\entryskip}{.75\entryskip}
 
 % ---- institution line: handles all four filled/empty combinations ----
 %  #1 = institution, #2 = location
@@ -212,8 +217,13 @@
 \needspace{.2\textheight}
 \section{Research Interests \& Training}
 
-\skillentry{Research Interests}
-{Consciousness and mental imagery.}
+\skillentry{Research Focus}
+{\textbf{Imaging \& Imagery} (Program Lead At Zhejiang University). How imagination and
+ perception together build the world we call ``Reality'': (i) the cognitive and neural mechanisms
+ of imagination and its relation to perception, studied with behavioral experiments and
+ high-field task fMRI combined with MR-compatible EEG/ERP; (ii) a computational toolkit over
+ resting-state fMRI that combines brain entropy, functional connectivity and EEG to characterise
+ brain-state dynamics.}
 
 \skillentry{Lab Rotations}
 {Rotations in social, clinical, developmental and cognitive neuroscience labs, progressively
@@ -224,17 +234,19 @@
  Reading Group (Swarma Club); Interdisciplinary Reading Club of Aphantasia (IRCA).}
 
 \skillentry{Technical Skills}
-{Hands-on practice in behavioural experiments, fMRI, EEG and eye-tracking; Python, C, MATLAB
- and PsychoPy.}
+{Behavioural experiments, fMRI, EEG (including MR-compatible EEG/ERP), eye-tracking;
+ computational modelling; Python, C, MATLAB, PsychoPy and jsPsych.}
 % ---------------- research experience ----------------
 \section{Research Experience}
 
 \entry
 {}
-{Undergraduate Research Assistant, Dr.\ Yuzheng Hu}
-{Department of Psychology and Behavioral Sciences, Zhejiang University}
+{Undergraduate Researcher, Dr.\ Yuzheng Hu\textsuperscript{1} and Dr.\ Xiaoqing
+ Gao\textsuperscript{2}}
+{Zhejiang University}
 {}
-{}
+{\textsuperscript{1}Department of Psychology and Behavioral Sciences;
+ \textsuperscript{2}Center for Psychological Sciences.}
 
 \entry
 {}
@@ -242,6 +254,15 @@
 {State Key Laboratory of Brain-Machine Intelligence, Zhejiang University}
 {}
 {}
+
+\entry
+{2026 -- Present}
+{BrainState: a brain-state measurement toolkit}
+{Zhejiang University}
+{}
+{Dynamic brain entropy computed over sliding windows, clustered by k-means into recurrent brain
+ states, and described by occupancy and dwell time; the same measures then go to patient groups
+ against matched controls.}
 
 \entry
 {2026 -- Present}
@@ -254,9 +275,8 @@
  imagery task, plus electrophysiological and neuromodulation measures of visual-cortical and
  prefrontal involvement.
 
- Role: project lead, with Dr. Jianghao Liu as collaborator; built the experimental platform at
- Zhejiang University and was responsible for participant recruitment, data collection and
- analysis, and quality control.
+ Role: built the experimental platform at Zhejiang University and was responsible for
+ participant recruitment, data collection and analysis, and quality control.
 
  Imaging studies are in preparation: a simultaneous fMRI--EEG study of where and when imagery
  enters perception, and a TMS--EEG study of whether the visual-cortical node is necessary.}
@@ -266,21 +286,20 @@
 {Acquired Silent Reading Disorder: A Single-Case Study}
 {Zhejiang University}
 {}
-{A single-case study I designed and led independently.
+{Case: a 19-year-old who lost spontaneous inner speech after a month of ``eye--mind direct''
+ speed-reading practice (forced suppression of subvocalization plus forced acceleration), and
+ could no longer understand text when reading silently without external support.
 
- Case: a participant who lost spontaneous inner speech after practising speed reading ---
- deliberate suppression of inner pronunciation combined with forced acceleration --- and
- could no longer read silently without external support.
+ Experiments: a remote session ($\sim$2.5\,h) with interview, YBOCS/VVIQ/BAIS, rapid automatized
+ naming and five jsPsych tasks (three writing systems, RSVP, homophone judgement, manual Stroop,
+ rapid identification); then an in-lab picture--text matching task over one to ten characters
+ under five pacing conditions (no aid; 4, 2, 1 and 0.5\,Hz).
 
- Experiment: a picture--text matching task over one to ten characters, run under five pacing
- conditions (no aid, and auditory rhythms at 4, 2, 1 and 0.5\,Hz), to test whether an external
- rhythm restores silent reading.
+ Account I proposed: a learned gating deficit in auditory imagery --- the generation is intact,
+ but voluntary initiation is blocked, and external rhythm or movement can drive it.
 
- Hypothesis: inner speech fails to reach conscious access, putatively because the left SMA is
- suppressed by over-activity of the right SMA, which would impair the efference copy.
-
- Treatment and outcome: low-frequency TMS over the right SMA; the participant recovered,
- consistent with the hypothesis.}
+ Follow-up: he later recovered at a local hospital after low-frequency TMS over the right SMA,
+ consistent with what the account predicts. Wish him well!}
 
 % ---------------- awards ----------------
 \section{Honors \& Awards}
@@ -291,28 +310,28 @@
 {Zhejiang University.}
 
 \awardentry
-{2026}
+{Oct 2026}
 {Outstanding Student}
 {Zhejiang University.}
 
 \awardentry
-{2026}
+{Oct 2026}
 {Academic Excellence Pacesetter \& International Exchange Pacesetter}
 {Zhejiang University.}
 
 \awardentry
-{2026}
+{Aug 2026}
 {First Prize, ``Mind Science and Intelligent Future'' International Summer School for Top
  Students in Psychology}
 {Faculty of Psychology, Beijing Normal University.}
 
 \awardentry
-{2026}
+{Mar 2026}
 {Excellent Poster Award, Psychology (Qiushi Honor's Program) Research Exhibition}
 {Department of Psychology and Behavioral Sciences, Zhejiang University.}
 
 \awardentry
-{2025}
+{Apr 2025}
 {Best Debater \& Best Team, Design Intelligence Award (DIA) Debate Competition}
 {}
 
@@ -328,7 +347,7 @@
 {Hangzhou, China}
 {}
 {Designed and delivered the keynote \emph{Where Is the Mind?}; organized and moderated the
- \emph{This Is Psychology} forum (recruiting three peer speakers); and facilitated the
+ \emph{This Is Psychology} forum; and facilitated the
  \emph{The Psych Crew Assembles} roundtable. Also ran three experiential sessions --- nature
  therapy, movement therapy and an interactive exhibition --- handling practitioner
  invitations, participant logistics and on-site support.}
@@ -345,8 +364,7 @@
 {\emph{Connecting the Dots}}
 {Department of Psychology and Behavioral Sciences, Zhejiang University}
 {}
-{An interactive talk for the incoming undergraduate cohort: interdisciplinary science, the 2050 Gathering,
- studying abroad and consciousness research.}
+{An interactive talk for the incoming undergraduate cohort.}
 
 \entry
 {Sep 2026}
@@ -408,7 +426,7 @@
 \entry
 {2026 -- Present}
 {Member, Science Popularization Center}
-{Zhejiang University}
+{Office of Scitech Research, Zhejiang University}
 {}
 {}
 
