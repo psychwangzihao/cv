@@ -1,86 +1,18 @@
-# 王梓豪 CV（LaTeX 版）
+# Curriculum Vitae — Wang Zihao
 
-## 这是什么
-用 LaTeX 排版、可一键重新生成的学术简历。源文件**只有 `main.tex` 一个**，
-数据都写在里面（不像 Word 那样靠大表格对齐，所以改内容不会把排版弄乱）。
+LaTeX source of my academic CV. Everything is in `main.tex`; the PDF is built from it.
 
-## 怎么用
-工作区的目录结构（脚本都按这个结构自动定位路径，搬到别处也能用）：
+## Build
 
-```
-GitHub/                     ← 工作区（所有仓库的本地检出根）
-├── deploy.py               ← 两个站点的发布/检查工具
-├── sites/
-│   ├── personal-homepage/  ← psychwangzihao.github.io
-│   └── colab-website/      ← consciousness-observers.github.io
-├── cv/                     ← 本目录（仓库 psychwangzihao/cv）
-└── research/               ← 开放科学项目（每个子目录一个仓库）
-```
+The document uses XeLaTeX. With [Tectonic](https://tectonic-typesetting.github.io):
 
 ```bash
-bash cv/build.sh          # 编译，并把 PDF 自动装到 sites/personal-homepage/assets/pdf/
-python3 deploy.py pp      # 发布到 https://psychwangzihao.github.io
-bash cv/push-source.sh    # 把源码同步到 https://github.com/psychwangzihao/cv
-```
-> CV 末尾有 "Source code for this CV" 链接，指向上面这个公开仓库，
-> 所以改完 CV 记得跑一次 `push-source.sh` 保持同步。
-> 两个脚本都必须从工作区根目录运行（或写全路径），它们在内部自己 `cd`。
-
-## Word 版（可手动修改的副本）
-
-`cv/CV_WangZihao.docx` 是这份 CV 的**可编辑副本**，内容和 PDF 一一对应。
-
-- 它的用途：你想改哪句话、调哪处措辞，直接在 Word 里改，比读 LaTeX 舒服。
-- **每改一次 PDF，我都会同步改这份 docx**；反过来你改完 docx 告诉我，
-  我按它回写 `main.tex` 再重编译。
-- 同步时是**在文件上原地改**（只替换变动的那几段），不会整份重新生成——
-  所以你在 Word 里做的手动调整不会被覆盖。
-- 两者的排版不会像素级相同：docx 用 Word 的排版引擎、LaTeX 用 tectonic，
-  栏宽/字号只是近似。**以 `main.tex` 的排版为准**，docx 只用来改字。
-
-## 改内容
-所有文字都在 `main.tex` 里，结构一目了然：
-
-| 想改什么 | 找哪里 |
-|---|---|
-| 姓名 / 联系方式 | `% ---------------- header ----------------` |
-| 教育经历 | `\section{Education}` |
-| 研究兴趣与受训 | `\section{Research Interests \& Training}` |
-| 研究经历 | `\section{Research Experience}` |
-| 演讲与报告 | `\section{Talks \& Presentations}` |
-| 领导力与社会服务 | `\section{Leadership \& Service}` |
-| 荣誉奖项 | `\section{Honors \& Awards}` |
-| 语言 | `\section{Languages}` |
-
-> 按本人要求：**不设 References 一节**。
-> 章节分类沿用本人原有方式；排版与措辞参考了两份学界 CV（O. Morgan；K. Fang）。
-
-一条经历的标准写法（左边日期、右边内容）：
-```latex
-\entry
-{2026 -- 2028}                       % 日期（空着就不画左边那根竖线）
-{Undergraduate Researcher, ...}      % 标题（加粗）
-{Zhejiang University, ...}           % 机构
-{Hangzhou, China}                    % 地点（可选，非空时显示成斜体括号）
-{一段说明文字。空着就只显示标题和机构。}
+tectonic -X compile main.tex
 ```
 
-标题下面还有几行正文时，用空行分段（段间距由 `\entry` 里的 `\parskip` 控制）。
-注意 LaTeX 里 `&` 要写成 `\&`，`%` 要写成 `\%`，引号用 ` `` ` 和 `''`。
+It also compiles on Overleaf: upload `main.tex` and set the compiler to XeLaTeX.
 
-## 环境
-- 版式：**参考 Owen Morgan 的 LaTeX CV（github.com/opmorgan/cv）**——章节标题加粗 + 下方通栏横线；每条经历"左日期栏 → 短竖杠 → 正文"；标题加粗、机构斜体、细节 `\footnotesize`；整体黑白不加色。
-- 想整体调松/调紧：改 `\setlength{\entryskip}{.25cm}` 一个值即可，
-  全篇所有条目间距都由它控制（日期列宽度是 `.15\textwidth`，
-  放得下 `Sep 2026` 这种短月份，放不下 `12/2025 – 04/2026`）。
-- 编译器：**XeLaTeX**。用 [Tectonic](https://tectonic-typesetting.github.io)
-  （本机已放了一份在 `../_tools/tectonic`，也可以用 `brew install tectonic`），
-  它会自动下载所需宏包，无需装 5GB 的 MacTeX。
-- 字体：**Avenir**（参考 CV 用的字体）；本机没有 Avenir 时自动退回
-  **TeX Gyre Heros**（Helvetica 风）。想换字体改 `\setmainfont` 即可，
-  已在本机验证可用：`libertinus`、`fira`、`sourcesanspro`。
-- 也能放 **Overleaf**：上传 `main.tex`，把编译器设为 XeLaTeX 即可。
+The compiled PDF is served at
+<https://psychwangzihao.github.io/assets/pdf/CV_WangZihao_ZJU.pdf>.
 
-## 历史版本
-`legacy/` 里是旧的 Word 版和旧 PDF 备份（仅存档，勿再使用：
-其中含已放弃的牛津访问生表述）。
+© Zihao Wang
