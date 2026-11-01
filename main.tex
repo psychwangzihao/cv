@@ -236,7 +236,15 @@
 \skillentry{Technical Skills}
 {Behavioural experiments, fMRI, EEG (including MR-compatible EEG/ERP), eye-tracking;
  computational modelling; Python, C, MATLAB, PsychoPy and jsPsych.}
+% ---------------- 分页 ----------------
+% 四页的分工是固定的：p1 教育 + 研究焦点 / p2 研究经历 / p3 获奖 + 演讲 /
+% p4 服务 + 语言 + 学术之外 + 源码链接。
+% 每个分页点都用 \clearpage 强制；内容不足的页用 \vspace* 把整块内容上下居中
+% （留白对半分），避免出现「底部一个大洞」。改内容后要重新量一遍这页还剩多少空间，
+% 否则内容会被顶到下一页、多出半页空白。
 % ---------------- research experience ----------------
+\clearpage
+\vspace*{0.15cm}
 \section{Research Experience}
 
 \entry
@@ -302,7 +310,13 @@
  consistent with what the account predicts. Wish him well!}
 
 % ---------------- awards ----------------
+\clearpage
 \section{Honors \& Awards}
+
+\awardentry
+{Nov 2026}
+{Eighth Place, Men's 5000\,m (Undergraduate)}
+{Zhejiang University Sports Meet.}
 
 \awardentry
 {Oct 2026}
@@ -383,6 +397,8 @@
 % ---------------- leadership & service ----------------
 % 顺序：发起成立的组织 → 受聘的朋辈导师 → 班级职务 → 志愿者。
 % 分量递减，所以不按日期排。
+\clearpage
+\vspace*{0.15cm}
 \section{Leadership \& Service}
 
 \entry
@@ -443,6 +459,18 @@
 \skillentry{Chinese}{Native}
 
 \skillentry{English}{IELTS 8.0}
+
+% ---------------- beyond research ----------------
+% 语言之后、源码链接之前。写得比上面几节松一点：这一节的作用是让读 CV 的人
+% 觉得对面是个活人，不是一张成果清单。措辞不要直译中文，保留自嘲和邀请的语气。
+\section{Beyond Academics}
+
+\noindent
+I'm a long-distance runner and a proud veteran of school and college broadcast-calisthenics
+teams, from primary school all the way through university. I also enjoy ball
+sports---enthusiastically rather than skillfully---and I'm always game for a new one. Piano has
+stayed with me since kindergarten; I especially love Asian-style favorites such as The Butterfly
+Lovers, River Flows in You, and Secret Base, and I'd be happy to play for you!
 
 % 源码链接（用户 2026-10-20 要求恢复）
 \vspace{1.2\entryskip}

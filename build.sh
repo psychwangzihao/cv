@@ -10,18 +10,18 @@ set -e
 cd "$(dirname "$0")"
 CV="$(pwd)"
 ROOT="$(cd .. && pwd)"                    # the GitHub workspace folder
-SITE="$ROOT/personal-homepage"
+SITE="$ROOT/sites/personal-homepage"
 DEST="$SITE/assets/pdf/CV_WangZihao_ZJU.pdf"
 
 # ── locate a LaTeX engine ──────────────────────────────────────────────
 TECTONIC="$(command -v tectonic || true)"
-[ -z "$TECTONIC" ] && [ -x "$ROOT/.tools/tectonic" ] && TECTONIC="$ROOT/.tools/tectonic"
+[ -z "$TECTONIC" ] && [ -x "$ROOT/_tools/tectonic" ] && TECTONIC="$ROOT/_tools/tectonic"
 if [ -z "$TECTONIC" ]; then
   cat >&2 <<'EOF'
 ❌  No LaTeX engine found.
     Install Tectonic (no 5 GB MacTeX needed):
         brew install tectonic
-    or drop the single binary at <workspace>/.tools/tectonic
+    or drop the single binary at <workspace>/_tools/tectonic
     (https://github.com/tectonic-typesetting/tectonic/releases)
     Overleaf also works: upload main.tex, set the compiler to XeLaTeX.
 EOF
@@ -32,7 +32,7 @@ fi
 # actually writable (sandboxed shells), fall back to a cache in the workspace.
 CACHE_PROBE="$HOME/Library/Caches/.cv-write-test.$$"
 if ! (mkdir -p "$HOME/Library/Caches" 2>/dev/null && : > "$CACHE_PROBE" 2>/dev/null); then
-  export HOME="$ROOT/.tools/home"
+  export HOME="$ROOT/_tools/home"
   mkdir -p "$HOME"
 else
   rm -f "$CACHE_PROBE"
@@ -49,7 +49,7 @@ echo "✅ CV built    -> $CV/main.pdf"
 echo "✅ installed   -> $DEST"
 
 # page count / size, if pypdf happens to be around
-PY="$ROOT/.tools/venv/bin/python"
+PY="$ROOT/_tools/venv/bin/python"
 [ -x "$PY" ] || PY="$(command -v python3 || true)"
 if [ -n "$PY" ]; then
   "$PY" - "$DEST" <<'PY' || true

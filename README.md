@@ -24,6 +24,18 @@ bash cv/push-source.sh    # 把源码同步到 https://github.com/psychwangzihao
 > 所以改完 CV 记得跑一次 `push-source.sh` 保持同步。
 > 两个脚本都必须从工作区根目录运行（或写全路径），它们在内部自己 `cd`。
 
+## Word 版（可手动修改的副本）
+
+`cv/CV_WangZihao.docx` 是这份 CV 的**可编辑副本**，内容和 PDF 一一对应。
+
+- 它的用途：你想改哪句话、调哪处措辞，直接在 Word 里改，比读 LaTeX 舒服。
+- **每改一次 PDF，我都会同步改这份 docx**；反过来你改完 docx 告诉我，
+  我按它回写 `main.tex` 再重编译。
+- 同步时是**在文件上原地改**（只替换变动的那几段），不会整份重新生成——
+  所以你在 Word 里做的手动调整不会被覆盖。
+- 两者的排版不会像素级相同：docx 用 Word 的排版引擎、LaTeX 用 tectonic，
+  栏宽/字号只是近似。**以 `main.tex` 的排版为准**，docx 只用来改字。
+
 ## 改内容
 所有文字都在 `main.tex` 里，结构一目了然：
 
