@@ -8,15 +8,17 @@
 工作区的目录结构（脚本都按这个结构自动定位路径，搬到别处也能用）：
 
 ```
-GitHub/                     ← 工作区
+GitHub/                     ← 工作区（所有仓库的本地检出根）
 ├── deploy.py               ← 两个站点的发布/检查工具
-├── personal-homepage/      ← psychwangzihao.github.io
-├── colab-website/          ← consciousness-observers.github.io
-└── cv/                     ← 本目录（源码 + 构建脚本）
+├── sites/
+│   ├── personal-homepage/  ← psychwangzihao.github.io
+│   └── colab-website/      ← consciousness-observers.github.io
+├── cv/                     ← 本目录（仓库 psychwangzihao/cv）
+└── research/               ← 开放科学项目（每个子目录一个仓库）
 ```
 
 ```bash
-bash cv/build.sh          # 编译，并把 PDF 自动装到 personal-homepage/assets/pdf/
+bash cv/build.sh          # 编译，并把 PDF 自动装到 sites/personal-homepage/assets/pdf/
 python3 deploy.py pp      # 发布到 https://psychwangzihao.github.io
 bash cv/push-source.sh    # 把源码同步到 https://github.com/psychwangzihao/cv
 ```
@@ -72,7 +74,7 @@ bash cv/push-source.sh    # 把源码同步到 https://github.com/psychwangzihao
   全篇所有条目间距都由它控制（日期列宽度是 `.15\textwidth`，
   放得下 `Sep 2026` 这种短月份，放不下 `12/2025 – 04/2026`）。
 - 编译器：**XeLaTeX**。用 [Tectonic](https://tectonic-typesetting.github.io)
-  （本机已放了一份在 `../.tools/tectonic`，也可以用 `brew install tectonic`），
+  （本机已放了一份在 `../_tools/tectonic`，也可以用 `brew install tectonic`），
   它会自动下载所需宏包，无需装 5GB 的 MacTeX。
 - 字体：**Avenir**（参考 CV 用的字体）；本机没有 Avenir 时自动退回
   **TeX Gyre Heros**（Helvetica 风）。想换字体改 `\setmainfont` 即可，
