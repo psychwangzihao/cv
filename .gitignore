@@ -1,3 +1,4 @@
-main.pdf
-CV_WangZihao.docx
+# build output and local working copies never go to the public repo
+*.pdf
+*.docx
 .DS_Store
